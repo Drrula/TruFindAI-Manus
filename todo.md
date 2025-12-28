@@ -34,4 +34,21 @@
 ## Testing & Delivery
 - [x] Write vitest tests for all backend procedures
 - [x] Final testing and polish
-- [ ] Create checkpoint and deliver to user
+- [x] Create checkpoint and deliver to user
+
+## Demo Conversion for Investors
+- [x] Create mock data structure for 4 trades (Plumber, Electrician, Roofer, HVAC)
+- [x] Build /demo route with instant-loading sample reports
+- [x] Add trade dropdown switcher (4 trades)
+- [x] Create dual gauge component (Current Score vs Projected Score)
+- [x] Add "Projection based on standard improvements" microtext
+- [x] Update competitor benchmarks with disclaimer
+- [x] Add "Next 2 Fixes" section with demo content
+- [x] Add "What changed / what we ship" section
+- [x] Create "Biweekly Score Update Example" card
+- [x] Update pricing to $49 Diagnostic / $99 Full Report / $39/month Monitoring
+- [x] Update homepage CTAs to route to /demo
+- [x] Add "Demo Activation" button (simulated, no real Stripe)
+- [x] Optional: Add "Download Sample PDF" button
+- [x] Remove live scoring functionality from main flow
+- [x] Polish all demo content for investor presentation

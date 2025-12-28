@@ -1,44 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
-import { trpc } from "@/lib/trpc";
-import { useState } from "react";
-import { useLocation } from "wouter";
-import { toast } from "sonner";
+import { Link } from "wouter";
 import { BarChart3, TrendingUp, Target, CheckCircle2, ArrowRight, Shield, Zap, Users } from "lucide-react";
 
 export default function Home() {
-  const [, setLocation] = useLocation();
-  const [formData, setFormData] = useState({
-    businessName: "",
-    website: "",
-    contactName: "",
-    contactEmail: "",
-    contactPhone: "",
-  });
-
-  const submitMutation = trpc.score.submitRequest.useMutation({
-    onSuccess: (data) => {
-      toast.success("Score generation started!");
-      setLocation(`/generating/${data.scoreToken}`);
-    },
-    onError: (error) => {
-      toast.error(error.message || "Failed to submit request");
-    },
-  });
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (!formData.businessName || !formData.website) {
-      toast.error("Please fill in required fields");
-      return;
-    }
-
-    submitMutation.mutate(formData);
-  };
 
   return (
     <div className="min-h-screen">
@@ -58,7 +24,7 @@ export default function Home() {
                 Pricing
               </a>
               <Button size="sm" asChild>
-                <a href="#get-score">Get My Score</a>
+                <Link href="/demo">Get My Score</Link>
               </Button>
             </div>
           </div>
@@ -84,9 +50,9 @@ export default function Home() {
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
               <Button size="lg" className="text-lg px-8 py-6" asChild>
-                <a href="#get-score">
+                <Link href="/demo">
                   Get My Free Score <ArrowRight className="ml-2 h-5 w-5" />
-                </a>
+                </Link>
               </Button>
               <Button size="lg" variant="outline" className="text-lg px-8 py-6" asChild>
                 <a href="#how-it-works">Learn More</a>
@@ -283,103 +249,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Get My Score Form */}
-      <section id="get-score" className="py-20 bg-gradient-to-br from-primary/5 via-accent/10 to-primary/5">
-        <div className="container mx-auto px-4">
-          <div className="max-w-2xl mx-auto">
-            <Card className="shadow-xl">
-              <CardHeader className="text-center">
-                <CardTitle className="text-3xl">Get Your Free TruFindAI Score</CardTitle>
-                <CardDescription className="text-lg">
-                  See how contractors find you online in under 30 seconds
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="space-y-2">
-                    <Label htmlFor="businessName" className="text-base">
-                      Business Name <span className="text-destructive">*</span>
-                    </Label>
-                    <Input
-                      id="businessName"
-                      placeholder="ABC Contracting LLC"
-                      value={formData.businessName}
-                      onChange={(e) => setFormData({ ...formData, businessName: e.target.value })}
-                      required
-                      className="h-12 text-base"
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="website" className="text-base">
-                      Website URL <span className="text-destructive">*</span>
-                    </Label>
-                    <Input
-                      id="website"
-                      type="url"
-                      placeholder="https://www.yourwebsite.com"
-                      value={formData.website}
-                      onChange={(e) => setFormData({ ...formData, website: e.target.value })}
-                      required
-                      className="h-12 text-base"
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="contactName" className="text-base">Contact Name</Label>
-                    <Input
-                      id="contactName"
-                      placeholder="John Smith"
-                      value={formData.contactName}
-                      onChange={(e) => setFormData({ ...formData, contactName: e.target.value })}
-                      className="h-12 text-base"
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="contactEmail" className="text-base">Email</Label>
-                    <Input
-                      id="contactEmail"
-                      type="email"
-                      placeholder="john@abccontracting.com"
-                      value={formData.contactEmail}
-                      onChange={(e) => setFormData({ ...formData, contactEmail: e.target.value })}
-                      className="h-12 text-base"
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="contactPhone" className="text-base">Phone Number</Label>
-                    <Input
-                      id="contactPhone"
-                      type="tel"
-                      placeholder="(555) 123-4567"
-                      value={formData.contactPhone}
-                      onChange={(e) => setFormData({ ...formData, contactPhone: e.target.value })}
-                      className="h-12 text-base"
-                    />
-                  </div>
-
-                  <Button
-                    type="submit"
-                    size="lg"
-                    className="w-full text-lg py-6"
-                    disabled={submitMutation.isPending}
-                  >
-                    {submitMutation.isPending ? "Submitting..." : "Get My Free Score"}
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </Button>
-
-                  <p className="text-xs text-center text-muted-foreground">
-                    No credit card required. Results in 30 seconds.
-                  </p>
-                </form>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-
       {/* Pricing */}
       <section id="pricing" className="py-20">
         <div className="container mx-auto px-4">
@@ -390,32 +259,32 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            <Card className="relative">
+          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            <Card>
               <CardHeader>
-                <CardTitle className="text-2xl">Free Score</CardTitle>
-                <CardDescription className="text-lg">Perfect for getting started</CardDescription>
+                <CardTitle className="text-2xl">Diagnostic Fee</CardTitle>
+                <CardDescription className="text-lg">One-time assessment</CardDescription>
                 <div className="pt-4">
-                  <span className="text-5xl font-bold">$0</span>
+                  <span className="text-5xl font-bold">$49</span>
                 </div>
               </CardHeader>
               <CardContent className="space-y-4">
                 <ul className="space-y-3">
-                  {[
-                    "One-time TruFindAI Score",
-                    "Fast score in 30 seconds",
-                    "Full analysis in 5 minutes",
-                    "Top 2 fix recommendations",
-                    "Competitor benchmarks",
-                  ].map((feature) => (
-                    <li key={feature} className="flex items-start gap-3">
-                      <CheckCircle2 className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
-                      <span>{feature}</span>
-                    </li>
-                  ))}
+                  <li className="flex items-start gap-3">
+                    <CheckCircle2 className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
+                    <span>Initial visibility assessment</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle2 className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
+                    <span>Competitor benchmarking</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle2 className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
+                    <span>Top 2 fix recommendations</span>
+                  </li>
                 </ul>
                 <Button variant="outline" size="lg" className="w-full mt-6" asChild>
-                  <a href="#get-score">Get Free Score</a>
+                  <Link href="/demo">Get Started</Link>
                 </Button>
               </CardContent>
             </Card>
@@ -427,31 +296,67 @@ export default function Home() {
                 </Badge>
               </div>
               <CardHeader>
-                <CardTitle className="text-2xl">Monitoring Service</CardTitle>
-                <CardDescription className="text-lg">Stay ahead of the competition</CardDescription>
+                <CardTitle className="text-2xl">Full Report</CardTitle>
+                <CardDescription className="text-lg">Complete analysis & roadmap</CardDescription>
                 <div className="pt-4">
-                  <span className="text-5xl font-bold">$97</span>
-                  <span className="text-muted-foreground">/month</span>
+                  <span className="text-5xl font-bold">$99</span>
                 </div>
               </CardHeader>
               <CardContent className="space-y-4">
                 <ul className="space-y-3">
-                  {[
-                    "Everything in Free Score",
-                    "Biweekly score updates",
-                    "Track score movement over time",
-                    "See what changed in each update",
-                    "Email notifications for changes",
-                    "Priority support",
-                  ].map((feature) => (
-                    <li key={feature} className="flex items-start gap-3">
-                      <CheckCircle2 className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
-                      <span>{feature}</span>
-                    </li>
-                  ))}
+                  <li className="flex items-start gap-3">
+                    <CheckCircle2 className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
+                    <span>Everything in Diagnostic</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle2 className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
+                    <span>Complete implementation plan</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle2 className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
+                    <span>Detailed action roadmap</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle2 className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
+                    <span>Priority support</span>
+                  </li>
                 </ul>
                 <Button size="lg" className="w-full mt-6" asChild>
-                  <a href="#get-score">Start Monitoring</a>
+                  <Link href="/demo">Get Started</Link>
+                </Button>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-2xl">Ongoing Monitoring</CardTitle>
+                <CardDescription className="text-lg">Continuous tracking</CardDescription>
+                <div className="pt-4">
+                  <span className="text-5xl font-bold">$39</span>
+                  <span className="text-xl text-muted-foreground">/mo</span>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <ul className="space-y-3">
+                  <li className="flex items-start gap-3">
+                    <CheckCircle2 className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
+                    <span>Biweekly score updates</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle2 className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
+                    <span>Track improvements over time</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle2 className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
+                    <span>Email progress reports</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle2 className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
+                    <span>Competitor monitoring</span>
+                  </li>
+                </ul>
+                <Button variant="outline" size="lg" className="w-full mt-6" asChild>
+                  <Link href="/demo">Get Started</Link>
                 </Button>
               </CardContent>
             </Card>

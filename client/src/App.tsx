@@ -7,11 +7,13 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
 import Generating from "./pages/Generating";
 import Results from "./pages/Results";
+import Demo from "./pages/Demo";
 
 function Router() {
   return (
     <Switch>
       <Route path={"/"} component={Home} />
+      <Route path={"/demo"} component={Demo} />
       <Route path={"/generating/:token"} component={Generating} />
       <Route path={"/results/:token"} component={Results} />
       <Route path={"/404"} component={NotFound} />
