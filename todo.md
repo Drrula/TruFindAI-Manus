@@ -68,3 +68,18 @@
 - [x] Add Final CTA section
 - [x] Polish all sections for high conversion
 - [x] Test responsive design and performance
+
+
+## Premium Graphite Redesign
+- [x] Update global styles with graphite/charcoal background and soft gradient
+- [x] Add subtle radial spotlight effect to hero section
+- [x] Redesign hero with new headline "See If AI Recommends You — Or Your Competitors"
+- [x] Add subheadline mentioning homeowners searching on AI platforms
+- [x] Create glowing green CTA "Get My Free AI Visibility Score" with soft glow
+- [x] Add secondary outline CTA "See Example Results"
+- [x] Add microcopy "60 seconds • Instant results • Competitor comparison included"
+- [x] Update score gauge with clear zones (red/amber/elite green) and "80+ Recommended" label
+- [x] Update competitor benchmark card with new data (You: 38, Competitor A: 75, Competitor B: 82)
+- [x] Refine all sections with graphite cards and subtle borders
+- [x] Optimize whitespace and typography for conversion
+- [x] Test responsive design and glow effects

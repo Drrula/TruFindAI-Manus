@@ -16,7 +16,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-background text-foreground overflow-hidden">
       {/* Navigation */}
-      <nav className="border-b border-border/50 bg-background/80 backdrop-blur-md sticky top-0 z-50">
+      <nav className="border-b border-border/30 bg-background/50 backdrop-blur-md sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
@@ -36,19 +36,22 @@ export default function Home() {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative py-20 md:py-32 overflow-hidden">
-        {/* Background gradient */}
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-background pointer-events-none" />
+      <section className="relative py-24 md:py-40 overflow-hidden">
+        {/* Soft gradient background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-background via-secondary to-background pointer-events-none" />
+        
+        {/* Subtle radial spotlight */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
         
         <div className="container mx-auto px-4 relative z-10">
-          <div className="grid md:grid-cols-2 gap-12 items-center max-w-7xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-16 items-center max-w-7xl mx-auto">
             {/* Left: Score Gauge */}
             <div className="flex flex-col items-center justify-center">
               <div className="mb-8">
                 <ScoreGauge
-                  score={68}
+                  score={38}
                   title="AI Visibility Score"
-                  description="Current online visibility rating"
+                  description="How visible you are to homeowners searching online"
                   size="lg"
                 />
               </div>
@@ -58,19 +61,19 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Right: Competitor Benchmark + CTA */}
+            {/* Right: Hero Content */}
             <div className="space-y-8">
               <div>
                 <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
-                  Know Your <span className="text-primary">TruFindAI Score</span>
+                  See If AI Recommends You — Or Your Competitors
                 </h1>
-                <p className="text-xl text-muted-foreground mb-8">
-                  Discover how contractors find you online. See how you stack up against local competitors and get actionable fixes in under 30 seconds.
+                <p className="text-xl text-muted-foreground mb-2">
+                  When homeowners search on ChatGPT, Perplexity, Claude, Alexa, and Google, can they find you?
                 </p>
               </div>
 
               {/* Competitor Benchmark Card */}
-              <Card className="bg-card/50 border-primary/20 backdrop-blur">
+              <Card className="bg-card/60 border-border/40 backdrop-blur-sm hover:border-border/60 transition-colors">
                 <CardHeader>
                   <CardTitle className="text-lg flex items-center gap-2">
                     <TrendingUp className="h-5 w-5 text-primary" />
@@ -81,28 +84,28 @@ export default function Home() {
                   <div>
                     <div className="flex justify-between items-center mb-2">
                       <span className="font-semibold text-primary">You</span>
-                      <span className="text-2xl font-bold text-primary">68</span>
+                      <span className="text-2xl font-bold text-primary">38</span>
                     </div>
                     <div className="h-3 bg-primary/20 rounded-full overflow-hidden">
-                      <div className="h-full bg-primary rounded-full" style={{ width: "68%" }} />
+                      <div className="h-full bg-primary rounded-full" style={{ width: "38%" }} />
                     </div>
                   </div>
                   <div>
                     <div className="flex justify-between items-center mb-2">
                       <span className="text-muted-foreground">Competitor A</span>
-                      <span className="text-lg font-bold text-muted-foreground">82</span>
+                      <span className="text-lg font-bold text-muted-foreground">75</span>
                     </div>
                     <div className="h-3 bg-muted rounded-full overflow-hidden">
-                      <div className="h-full bg-muted" style={{ width: "82%" }} />
+                      <div className="h-full bg-muted" style={{ width: "75%" }} />
                     </div>
                   </div>
                   <div>
                     <div className="flex justify-between items-center mb-2">
                       <span className="text-muted-foreground">Competitor B</span>
-                      <span className="text-lg font-bold text-muted-foreground">75</span>
+                      <span className="text-lg font-bold text-muted-foreground">82</span>
                     </div>
                     <div className="h-3 bg-muted rounded-full overflow-hidden">
-                      <div className="h-full bg-muted" style={{ width: "75%" }} />
+                      <div className="h-full bg-muted" style={{ width: "82%" }} />
                     </div>
                   </div>
                 </CardContent>
@@ -110,16 +113,30 @@ export default function Home() {
 
               {/* CTAs */}
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button size="lg" className="text-lg px-8 py-6 bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg shadow-primary/50" asChild>
+                <Button 
+                  size="lg" 
+                  className="text-lg px-8 py-6 bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg shadow-primary/40 transition-all hover:shadow-primary/60"
+                  asChild
+                >
                   <Link href="/demo">
-                    Get My Free TruFindAI Score
+                    Get My Free AI Visibility Score
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Link>
                 </Button>
-                <Button size="lg" variant="outline" className="text-lg px-8 py-6 border-primary/50 hover:bg-primary/10" onClick={() => scrollToSection("example-results")}>
+                <Button 
+                  size="lg" 
+                  variant="outline" 
+                  className="text-lg px-8 py-6 border-border/60 hover:bg-primary/10 hover:border-primary/50 transition-colors"
+                  onClick={() => scrollToSection("example-results")}
+                >
                   See Example Results
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
+              </div>
+
+              {/* Microcopy */}
+              <div className="text-sm text-muted-foreground font-medium">
+                60 seconds • Instant results • Competitor comparison included
               </div>
 
               <div className="flex flex-wrap gap-6 text-sm text-muted-foreground">
@@ -129,7 +146,7 @@ export default function Home() {
                 </div>
                 <div className="flex items-center gap-2">
                   <Zap className="h-4 w-4 text-primary" />
-                  <span>30 Seconds</span>
+                  <span>Instant Results</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Users className="h-4 w-4 text-primary" />
@@ -142,9 +159,9 @@ export default function Home() {
       </section>
 
       {/* AI Platforms Strip */}
-      <section id="ai-platforms" className="py-12 border-y border-border/50 bg-card/30">
+      <section id="ai-platforms" className="py-12 border-y border-border/30 bg-secondary/30">
         <div className="container mx-auto px-4">
-          <p className="text-center text-sm text-muted-foreground mb-6">Powered by leading AI platforms:</p>
+          <p className="text-center text-sm text-muted-foreground mb-8">Homeowners search on these platforms:</p>
           <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12">
             {["ChatGPT", "Perplexity", "Claude", "Alexa", "Google"].map((platform) => (
               <div key={platform} className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors">
@@ -156,13 +173,13 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Problem / Solution Section */}
+      {/* Problem Section */}
       <section className="py-20">
         <div className="container mx-auto px-4 max-w-6xl">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold mb-4">The Problem</h2>
-            <p className="text-xl text-muted-foreground">
-              Contractors don't know how visible they are online or how customers find them
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Homeowners are searching for contractors on AI platforms and Google. If they can't find you, they'll find your competitors.
             </p>
           </div>
 
@@ -171,20 +188,20 @@ export default function Home() {
               {
                 icon: MessageCircle,
                 title: "Lost Leads",
-                description: "Customers can't find you online, so they call your competitors instead",
+                description: "Homeowners searching on ChatGPT, Perplexity, and Claude can't find you—so they call your competitors instead.",
               },
               {
                 icon: Lightbulb,
                 title: "No Visibility",
-                description: "You don't know which online channels matter most for your business",
+                description: "You don't know which online channels matter most for your business or where to invest your time.",
               },
               {
                 icon: Target,
                 title: "No Roadmap",
-                description: "Without a plan, you waste time and money on the wrong fixes",
+                description: "Without a clear plan, you waste time and money on fixes that don't move the needle.",
               },
             ].map((item, idx) => (
-              <Card key={idx} className="bg-card/50 border-border/50 hover:border-primary/50 transition-colors">
+              <Card key={idx} className="bg-card/40 border-border/30 hover:border-border/60 transition-colors">
                 <CardContent className="p-6">
                   <item.icon className="h-12 w-12 text-primary mb-4" />
                   <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
@@ -193,23 +210,16 @@ export default function Home() {
               </Card>
             ))}
           </div>
-
-          <div className="mt-16 text-center">
-            <h3 className="text-3xl font-bold mb-8">The TruFindAI Solution</h3>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto mb-8">
-              Get your AI Visibility Score instantly. See exactly where you stand, how you compare to competitors, and what to fix first. Then track your progress with biweekly updates.
-            </p>
-          </div>
         </div>
       </section>
 
       {/* Next 2 Fixes Section */}
-      <section className="py-20 bg-card/30 border-y border-border/50">
+      <section className="py-20 bg-secondary/20 border-y border-border/30">
         <div className="container mx-auto px-4 max-w-6xl">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold mb-4">Next 2 Fixes</h2>
             <p className="text-xl text-muted-foreground">
-              Prioritized recommendations based on your score analysis
+              Prioritized recommendations based on your AI Visibility analysis
             </p>
           </div>
 
@@ -217,18 +227,18 @@ export default function Home() {
             {[
               {
                 number: 1,
-                title: "Claim Google Business Profile",
-                description: "Increase local visibility by 40% with proper profile setup and optimization",
+                title: "Claim & Optimize Google Business Profile",
+                description: "Increase visibility by 40% with proper profile setup, photos, and service area optimization.",
                 impact: "+8-12 points",
               },
               {
                 number: 2,
-                title: "Optimize Meta Tags & Schema",
-                description: "Add missing meta descriptions and structured data to improve search rankings",
+                title: "Add Schema Markup & Meta Tags",
+                description: "Help AI platforms understand your services with structured data and optimized meta descriptions.",
                 impact: "+5-8 points",
               },
             ].map((fix) => (
-              <Card key={fix.number} className="bg-card/50 border-primary/20 hover:border-primary/50 transition-colors">
+              <Card key={fix.number} className="bg-card/40 border-border/30 hover:border-primary/40 transition-colors">
                 <CardContent className="p-8">
                   <div className="flex items-start gap-4 mb-4">
                     <div className="h-10 w-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">
@@ -249,15 +259,15 @@ export default function Home() {
       <section id="example-results" className="py-20">
         <div className="container mx-auto px-4 max-w-6xl">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">Example Biweekly Update</h2>
+            <h2 className="text-4xl font-bold mb-4">Example Results</h2>
             <p className="text-xl text-muted-foreground">
               See how contractors improve with TruFindAI monitoring
             </p>
           </div>
 
-          <Card className="bg-card/50 border-primary/20 overflow-hidden">
+          <Card className="bg-card/40 border-border/30 overflow-hidden">
             <CardContent className="p-8">
-              <div className="grid md:grid-cols-3 gap-8 items-center">
+              <div className="grid md:grid-cols-3 gap-8 items-center mb-8">
                 <div className="text-center">
                   <p className="text-sm text-muted-foreground mb-2">Previous Score</p>
                   <p className="text-5xl font-bold text-muted-foreground">61</p>
@@ -266,22 +276,22 @@ export default function Home() {
                   <ArrowRight className="h-12 w-12 text-primary" />
                 </div>
                 <div className="text-center">
-                  <p className="text-sm text-muted-foreground mb-2">New Score</p>
+                  <p className="text-sm text-muted-foreground mb-2">New Score (2 weeks)</p>
                   <p className="text-5xl font-bold text-primary">66</p>
                   <p className="text-sm text-primary font-semibold mt-2">+5 points</p>
                 </div>
               </div>
 
-              <div className="mt-8 pt-8 border-t border-border/50">
+              <div className="pt-8 border-t border-border/30">
                 <h4 className="font-semibold mb-4">What Changed:</h4>
                 <ul className="space-y-2 text-muted-foreground">
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
-                    <span>Google Business Profile now fully optimized with 15 new reviews</span>
+                    <span>Google Business Profile fully optimized with 15 new reviews</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
-                    <span>Schema markup added to service pages, improving search visibility</span>
+                    <span>Schema markup added to service pages, improving AI platform visibility</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
@@ -295,7 +305,7 @@ export default function Home() {
       </section>
 
       {/* Pricing Section */}
-      <section id="pricing" className="py-20 bg-card/30 border-y border-border/50">
+      <section id="pricing" className="py-20 bg-secondary/20 border-y border-border/30">
         <div className="container mx-auto px-4 max-w-6xl">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold mb-4">Simple, Transparent Pricing</h2>
@@ -344,8 +354,8 @@ export default function Home() {
                 key={idx}
                 className={`relative ${
                   plan.featured
-                    ? "border-primary border-2 shadow-lg shadow-primary/20"
-                    : "border-border/50"
+                    ? "border-primary border-2 shadow-lg shadow-primary/20 bg-card/60"
+                    : "border-border/30 bg-card/40"
                 }`}
               >
                 {plan.featured && (
@@ -386,17 +396,24 @@ export default function Home() {
       {/* Final CTA Section */}
       <section className="py-20">
         <div className="container mx-auto px-4 max-w-4xl">
-          <Card className="bg-gradient-to-br from-primary/10 via-background to-background border-primary/20">
-            <CardContent className="p-12 text-center">
+          <Card className="bg-gradient-to-br from-primary/10 via-card/40 to-card/40 border-border/30 relative overflow-hidden">
+            {/* Subtle spotlight */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
+            
+            <CardContent className="p-12 text-center relative z-10">
               <h2 className="text-4xl font-bold mb-4">
-                Ready to Improve Your Visibility?
+                Ready to Improve Your AI Visibility?
               </h2>
               <p className="text-lg text-muted-foreground mb-8">
-                Get your free TruFindAI Score and see exactly how you compare to local competitors
+                Get your free AI Visibility Score and see exactly how you compare to local competitors
               </p>
-              <Button size="lg" className="text-lg px-8 py-6 bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg shadow-primary/50" asChild>
+              <Button 
+                size="lg" 
+                className="text-lg px-8 py-6 bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg shadow-primary/40 transition-all hover:shadow-primary/60"
+                asChild
+              >
                 <Link href="/demo">
-                  Get My Free TruFindAI Score
+                  Get My Free AI Visibility Score
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
@@ -406,7 +423,7 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-border/50 bg-card/30 py-8">
+      <footer className="border-t border-border/30 bg-secondary/20 py-8">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="flex items-center gap-2">
