@@ -1,7 +1,8 @@
-import { eq } from "drizzle-orm";
+import { eq, desc, and } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, users } from "../drizzle/schema";
+import { InsertUser, users, businessProfiles, InsertBusinessProfile, scoreReports, InsertScoreReport, scoreHistory, InsertScoreHistory } from "../drizzle/schema";
 import { ENV } from './_core/env';
+import { nanoid } from 'nanoid';
 
 let _db: ReturnType<typeof drizzle> | null = null;
 
@@ -89,4 +90,118 @@ export async function getUserByOpenId(openId: string) {
   return result.length > 0 ? result[0] : undefined;
 }
 
-// TODO: add feature queries here as your schema grows.
+// Business Profile queries
+export async function createBusinessProfile(profile: Omit<InsertBusinessProfile, 'scoreToken'> & { generateToken?: boolean }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  const values: InsertBusinessProfile = {
+    ...profile,
+    scoreToken: profile.generateToken ? nanoid(32) : undefined,
+  };
+
+  const result = await db.insert(businessProfiles).values(values);
+  return result[0].insertId;
+}
+
+export async function getBusinessProfileById(id: number) {
+  const db = await getDb();
+  if (!db) return undefined;
+
+  const result = await db.select().from(businessProfiles).where(eq(businessProfiles.id, id)).limit(1);
+  return result.length > 0 ? result[0] : undefined;
+}
+
+export async function getBusinessProfileByToken(token: string) {
+  const db = await getDb();
+  if (!db) return undefined;
+
+  const result = await db.select().from(businessProfiles).where(eq(businessProfiles.scoreToken, token)).limit(1);
+  return result.length > 0 ? result[0] : undefined;
+}
+
+export async function updateBusinessProfileSubscription(
+  id: number,
+  data: {
+    stripeCustomerId?: string;
+    stripeSubscriptionId?: string;
+    subscriptionStatus?: "none" | "active" | "canceled" | "past_due";
+  }
+) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  await db.update(businessProfiles).set(data).where(eq(businessProfiles.id, id));
+}
+
+// Score Report queries
+export async function createScoreReport(report: InsertScoreReport) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  const result = await db.insert(scoreReports).values(report);
+  return result[0].insertId;
+}
+
+export async function getScoreReportById(id: number) {
+  const db = await getDb();
+  if (!db) return undefined;
+
+  const result = await db.select().from(scoreReports).where(eq(scoreReports.id, id)).limit(1);
+  return result.length > 0 ? result[0] : undefined;
+}
+
+export async function getLatestScoreReportByBusinessId(businessProfileId: number) {
+  const db = await getDb();
+  if (!db) return undefined;
+
+  const result = await db
+    .select()
+    .from(scoreReports)
+    .where(eq(scoreReports.businessProfileId, businessProfileId))
+    .orderBy(desc(scoreReports.createdAt))
+    .limit(1);
+
+  return result.length > 0 ? result[0] : undefined;
+}
+
+export async function updateScoreReport(
+  id: number,
+  data: Partial<Omit<InsertScoreReport, 'businessProfileId' | 'scanType'>>
+) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  await db.update(scoreReports).set(data).where(eq(scoreReports.id, id));
+}
+
+export async function getScoreReportsByBusinessId(businessProfileId: number) {
+  const db = await getDb();
+  if (!db) return [];
+
+  return await db
+    .select()
+    .from(scoreReports)
+    .where(eq(scoreReports.businessProfileId, businessProfileId))
+    .orderBy(desc(scoreReports.createdAt));
+}
+
+// Score History queries
+export async function createScoreHistory(history: InsertScoreHistory) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  const result = await db.insert(scoreHistory).values(history);
+  return result[0].insertId;
+}
+
+export async function getScoreHistoryByBusinessId(businessProfileId: number) {
+  const db = await getDb();
+  if (!db) return [];
+
+  return await db
+    .select()
+    .from(scoreHistory)
+    .where(eq(scoreHistory.businessProfileId, businessProfileId))
+    .orderBy(desc(scoreHistory.createdAt));
+}
