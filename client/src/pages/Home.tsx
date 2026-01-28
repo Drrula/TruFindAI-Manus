@@ -115,7 +115,7 @@ export default function Home() {
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button 
                   size="lg" 
-                  className="text-lg px-8 py-6 bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg shadow-primary/40 transition-all hover:shadow-primary/60"
+                  className="text-lg px-10 py-7 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-semibold shadow-lg shadow-emerald-500/30 hover:shadow-emerald-500/50 transition-all duration-200"
                   asChild
                 >
                   <Link href="/demo">
@@ -396,9 +396,9 @@ export default function Home() {
       {/* Final CTA Section */}
       <section className="py-20">
         <div className="container mx-auto px-4 max-w-4xl">
-          <Card className="bg-gradient-to-br from-primary/10 via-card/40 to-card/40 border-border/30 relative overflow-hidden">
+          <Card className="bg-gradient-to-br from-emerald-600/10 via-slate-900/40 to-slate-900/40 border-slate-700/50 relative overflow-hidden">
             {/* Subtle spotlight */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none" />
             
             <CardContent className="p-12 text-center relative z-10">
               <h2 className="text-4xl font-bold mb-4">
@@ -409,7 +409,7 @@ export default function Home() {
               </p>
               <Button 
                 size="lg" 
-                className="text-lg px-8 py-6 bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg shadow-primary/40 transition-all hover:shadow-primary/60"
+                className="text-lg px-10 py-7 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-semibold shadow-lg shadow-emerald-500/30 hover:shadow-emerald-500/50 transition-all duration-200"
                 asChild
               >
                 <Link href="/demo">
