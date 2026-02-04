@@ -38,6 +38,18 @@ async function startServer() {
   // Configure body parser with larger size limit for file uploads
   app.use(express.json({ limit: "50mb" }));
   app.use(express.urlencoded({ limit: "50mb", extended: true }));
+    // Twilio Voice webhook (TwiML)
+  // Twilio sends application/x-www-form-urlencoded
+  app.post("/api/twilio/voice", (req, res) => {
+    const twiml =
+      `<?xml version="1.0" encoding="UTF-8"?>` +
+      `<Response>` +
+      `<Say voice="alice">Hello. Your Twilio webhook is working.</Say>` +
+      `</Response>`;
+
+    res.status(200).type("text/xml").send(twiml);
+  });
+
   // OAuth callback under /api/oauth/callback
   registerOAuthRoutes(app);
   // tRPC API
@@ -47,8 +59,24 @@ async function startServer() {
       router: appRouter,
       createContext,
     })
-  );
-  // development mode uses Vite, production mode uses static files
+  );  // Prevent SPA fallback from catching /api/* routes (but allow /api/trpc)
+app.use("/api", (req, res, next) => {
+  if (req.path.startsWith("/trpc")) return next();
+  res.status(404).json({ error: "API route not found", path: req.path });
+  });
+  // Twilio Voice webhook (TwiML)
+// Twilio sends application/x-www-form-urlencoded
+app.post("/api/twilio/voice", (req, res) => {
+  const twiml =
+    `<?xml version="1.0" encoding="UTF-8"?>` +
+    `<Response>` +
+    `<Say voice="alice">Hello. Your Twilio webhook is working.</Say>` +
+    `</Response>`;
+
+  res.status(200).type("text/xml").send(twiml);
+});
+
+// development mode uses Vite, production mode uses static files
   if (process.env.NODE_ENV === "development") {
     await setupVite(app, server);
   } else {
